@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qi Zhao — AI Vision & Computer Vision Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F4F6;
+    --paper-dim:#EAEBEE;
+    --ink:#12161F;
+    --line:#DBDEE3;
+    --line-strong:#B7BCC5;
+    --accent:#A9762C;
+    --accent-deep:#7A5620;
+    --accent-soft:#EFE4D0;
+    --muted:#5B6068;
+    --paper-card:#FCFCFB;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent-soft); color:var(--accent-deep);}
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,246,242,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:600; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .nav-mark .dot{width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block;}
+  nav.nav-links{display:flex; align-items:center; gap:28px;}
+  nav.nav-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; letter-spacing:0.04em; color:var(--muted);
+    transition:color .2s ease;
+  }
+  nav.nav-links a:hover{color:var(--accent-deep);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; letter-spacing:0.03em;
+    padding:9px 16px;
+    border-radius:100px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--ink); color:var(--paper);}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.primary:hover{background:var(--accent-deep); border-color:var(--accent-deep);}
+  .btn.ghost{border-color:var(--line-strong); color:var(--muted);}
+  .btn.ghost:hover{border-color:var(--ink); color:var(--ink); background:transparent;}
+
+  /* ---------- PULSE DIVIDER ---------- */
+  .pulse-divider{width:100%; padding:0; overflow:hidden;}
+  .pulse-divider svg{width:100%; display:block;}
+  .pulse-line{
+    fill:none; stroke:var(--accent); stroke-width:1.6;
+    stroke-dasharray:1400; stroke-dashoffset:1400;
+    animation:draw 2.4s ease forwards;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 8px;}
+  .hero .eyebrow{margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+  .hero .eyebrow::before{content:""; width:26px; height:1px; background:var(--line-strong); display:inline-block;}
+  h1.name{
+    font-size:clamp(46px, 8vw, 84px);
+    line-height:0.98;
+    margin-bottom:22px;
+  }
+  .hero-sub{
+    max-width:560px;
+    font-size:18px;
+    color:var(--muted);
+    margin-bottom:36px;
+  }
+  .ledger-row{
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:1px solid var(--line);
+    margin-top:8px;
+  }
+  .ledger-item{
+    flex:1 1 160px;
+    padding:14px 20px 14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .ledger-item + .ledger-item{border-left:1px solid var(--line); padding-left:20px;}
+  .ledger-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:6px;
+  }
+  .ledger-value{font-size:14.5px; font-weight:500;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:88px 0;}
+  section.tight{padding-top:0;}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:24px; margin-bottom:48px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  .section-head h2{font-size:32px;}
+  .section-head .count{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--muted);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px;}
+  .about-grid p{color:var(--muted); font-size:16px; margin-bottom:16px; max-width:52ch;}
+  .about-grid p strong{color:var(--ink); font-weight:600;}
+  .skill-ledger{border-top:1px solid var(--line);}
+  .skill-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:13px 0; border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .skill-row .k{font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase;}
+  .skill-row .v{text-align:right; max-width:280px;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;}
+  .pill{
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    padding:4px 10px; border-radius:100px;
+    background:var(--accent-soft); color:var(--accent-deep);
+  }
+
+  /* ---------- EDUCATION STRIP ---------- */
+  .edu-card{
+    background:var(--paper-card); border:1px solid var(--line);
+    border-radius:14px; padding:28px 32px; margin-top:40px;
+  }
+  .edu-card .eyebrow{margin-bottom:10px;}
+  .edu-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:10px;}
+  .edu-top h3{font-size:22px;}
+  .edu-meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);}
+  .edu-card p{color:var(--muted); font-size:14.5px; max-width:70ch;}
+
+  /* ---------- CASE FILES / PROJECTS ---------- */
+  .case{
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--paper-card);
+    padding:32px;
+    margin-bottom:20px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .case:hover{border-color:var(--line-strong); transform:translateY(-2px);}
+  .case-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; margin-bottom:14px;
+  }
+  .case-id{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent-deep);
+    letter-spacing:.06em;
+  }
+  .case-date{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);
+    text-align:right; white-space:nowrap;
+  }
+  .case h3{font-size:23px; margin-bottom:6px;}
+  .case-loc{font-size:12.5px; color:var(--muted); margin-bottom:14px; font-family:'IBM Plex Mono', monospace;}
+  .case p.desc{color:var(--muted); font-size:15px; max-width:68ch; margin-bottom:18px;}
+  .case-foot{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    padding:4px 10px; border:1px solid var(--line-strong); border-radius:100px;
+    color:var(--muted);
+  }
+  .repo-link{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+    color:var(--accent-deep); border-bottom:1px solid var(--accent);
+    padding-bottom:1px; white-space:nowrap;
+  }
+  .repo-link:hover{color:var(--accent);}
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    background:var(--accent-deep); color:#fff; padding:4px 10px; border-radius:100px;
+    margin-left:10px;
+  }
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:64px 0 40px;
+  }
+  .contact-grid{display:flex; flex-wrap:wrap; justify-content:space-between; gap:40px; align-items:flex-end; margin-bottom:56px;}
+  footer h2{font-size:34px; max-width:520px; line-height:1.1;}
+  .contact-actions{display:flex; gap:12px; flex-wrap:wrap;}
+  .contact-lines{display:flex; flex-wrap:wrap; gap:32px; border-top:1px solid var(--line); padding-top:24px;}
+  .contact-lines div .ledger-label{margin-bottom:4px;}
+  .foot-note{margin-top:40px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted);}
+
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    .nav-inner{padding:14px 20px;}
+    nav.nav-links{display:none;}
+    .about-grid{grid-template-columns:1fr; gap:36px;}
+    .skill-row .v{text-align:left; max-width:none;}
+    .skill-row{flex-direction:column; align-items:flex-start; gap:6px;}
+    .pill-row{justify-content:flex-start;}
+    .case-top{flex-direction:column;}
+    .case-date{text-align:left;}
+    .contact-grid{align-items:flex-start;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .pulse-line{animation:none; stroke-dashoffset:0;}
+    .case{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span>QI ZHAO — CASE FILE</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="Qi_Zhao_CV.pdf" download="Qi_Zhao_CV.pdf">Download CV ↓</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Case No. 001 — Open File</div>
+    <h1 class="name">Qi Zhao</h1>
+    <p class="hero-sub">AI vision engineer working on diffusion models, sensor synchronization, and deep learning for image reconstruction — applied to domains from clinical imaging to multi-camera capture systems.</p>
+
+    <div class="ledger-row">
+      <div class="ledger-item">
+        <div class="ledger-label">Based in</div>
+        <div class="ledger-value">Rouen, France</div>
+      </div>
+      <div class="ledger-item">
+        <div class="ledger-label">Field</div>
+        <div class="ledger-value">AI Vision &amp; Computer Vision</div>
+      </div>
+      <div class="ledger-item">
+        <div class="ledger-label">Languages</div>
+        <div class="ledger-value">Chinese · English (B2) · French (DELF B2)</div>
+      </div>
+      <div class="ledger-item">
+        <div class="ledger-label">Status</div>
+        <div class="ledger-value">Open to opportunities</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider">
+    <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,30 L260,30 L290,8 L315,52 L340,30 L400,30 L420,18 L440,42 L460,30 L1000,30" />
+    </svg>
+  </div>
+
+  <section id="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="count mono">01 / FILE</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a 26-year-old engineer focused on <strong>AI vision and computer vision</strong> — diffusion models, sensor synchronization, and deep learning for image reconstruction. My training is in medical systems engineering at ESIGELEC (Rouen, ISYMED dominant), which gave me a strong applied base in embedded devices and AI, and my recent work has mostly been applied in clinical imaging — though the underlying skills (model design, multi-sensor systems, real-time capture) carry directly into computer vision work more broadly.</p>
+        <p>Recent projects: exploring whether diffusion models (DDIM) can improve partial-volume correction in ¹⁷⁷Lu SPECT/CT by integrating them into an existing R2U-Net pipeline, and building a synchronized multi-sensor capture system controlling DVSense and DAVIS346 event cameras for motion and scene-change analysis. Both were built at the Computer Vision Laboratory, University of Würzburg — the SPECT work in direct partnership with Universitätsklinikum Würzburg's medical imaging team.</p>
+        <p>Earlier academic projects — a first-prize implantable inertial motion tracker for patients with impaired motor function, a CNN trained to classify pneumonia from chest X-rays, a MobileNetV2-based facial detection pipeline, and a line-following robot pair built on an MSP430 — trace a consistent thread: taking a diagnostic, clinical, or sensing problem and building the model or device that solves it end to end, from embedded hardware up through the training pipeline.</p>
+        <p>I work primarily in <strong>Python and PyTorch</strong>, with CUDA, OpenCV, and Arduino/MATLAB for the embedded and signal-processing side, and I'm fluent across Chinese (native), English (TOEIC 860 / B2), and French (DELF B2).</p>
+      </div>
+      <div>
+        <div class="skill-ledger">
+          <div class="skill-row">
+            <div class="k">Tools</div>
+            <div class="v"><div class="pill-row"><span class="pill">Python</span><span class="pill">PyTorch</span><span class="pill">CUDA</span><span class="pill">OpenCV</span><span class="pill">Jupyter</span><span class="pill">MATLAB</span><span class="pill">Arduino</span><span class="pill">Linux</span></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="k">Languages</div>
+            <div class="v"><div class="pill-row"><span class="pill">Chinese — Native</span><span class="pill">English — TOEIC 860 (B2)</span><span class="pill">French — DELF B2</span></div></div>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="eyebrow">Education</div>
+          <div class="edu-top">
+            <h3>ISYMED — Medical Systems Engineering</h3>
+            <div class="edu-meta">ESIGELEC · Rouen · 2022</div>
+          </div>
+          <p>Dominant engineering diploma covering surgical robotics &amp; teleoperation, AI for healthcare (levels 1 &amp; 2), machine learning fundamentals, hospital equipment management, and the regulatory framework for embedded medical devices — including hands-on work modifying and validating an automated injection system.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="tight">
+    <div class="section-head">
+      <h2>Work History</h2>
+      <span class="count mono">02 ENTRIES</span>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 01 — RESEARCH</div>
+        </div>
+        <div class="case-date">05/2025 – 08/2025 · Würzburg</div>
+      </div>
+      <h3>Medical Image Enhancement by Diffusion Model</h3>
+      <div class="case-loc">Computer Vision Laboratory, University of Würzburg — with Universitätsklinikum Würzburg</div>
+      <p class="desc">Built a complete 3D medical-image enhancement framework integrating the DDIM diffusion model with an existing clinical imaging pipeline for SPECT reconstruction. Modified the hospital's R2U-Net into a dual-channel architecture to sharpen image detail and blur recognition, then integrated the diffusion model with the existing PyTorch Lightning training infrastructure — all while preserving the original architecture and evaluation flow.</p>
+      <div class="case-foot">
+        <a href="https://github.com/MRick2L/MedicalDDIM" class="repo-link" target="_blank" rel="noopener">View repository ↗</a>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 02 — RESEARCH</div>
+        </div>
+        <div class="case-date">03/2025 – 04/2025 · Würzburg</div>
+      </div>
+      <h3>Multi-Event Camera Synchronization Framework</h3>
+      <div class="case-loc">Computer Vision Laboratory, University of Würzburg</div>
+      <p class="desc">Designed a multi-camera data acquisition system enabling simultaneous, synchronized control of heterogeneous imaging sensors — including DAVIS346 event cameras and DVSense devices. Supports synchronized triggering, real-time previews, and structured data storage for downstream motion and scene-change analysis.</p>
+      <div class="case-foot">
+        <a href="https://github.com/MRick2L/DavisDvsenseSystem" class="repo-link" target="_blank" rel="noopener">View repository ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="section-head">
+      <h2>Academic Projects</h2>
+      <span class="count mono">04 ENTRIES</span>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 03 — SCHOOL PROJECT</div>
+        </div>
+        <div class="case-date">11/2024 – 01/2025 · Rouen</div>
+      </div>
+      <h3>CNN for Pneumonia Classification</h3>
+      <div class="case-loc">ESIGELEC</div>
+      <p class="desc">Trained a convolutional neural network on chest X-ray images, using data augmentation to improve robustness, diagnostic accuracy, and inference speed. Documented the implementation and results in an English research paper written in Overleaf.</p>
+      <div class="case-foot">
+        <div class="tags"><span class="tag">CNN</span><span class="tag">Data Augmentation</span><span class="tag">Medical Imaging</span></div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 04 — COMPETITION <span class="badge">🏆 1st Prize</span></div>
+        </div>
+        <div class="case-date">10/2024 – 11/2024 · Rouen</div>
+      </div>
+      <h3>Implantable Inertial Unit — Hackathon</h3>
+      <div class="case-loc">ESIGELEC School Competition</div>
+      <p class="desc">Developed an implantable motion-tracking system for patients who have lost significant motor function due to disease or surgery — tracking the position and movement cycle of neighboring muscles to support rehabilitation and diagnosis. Awarded first prize.</p>
+      <div class="case-foot">
+        <div class="tags"><span class="tag">Embedded Systems</span><span class="tag">Motion Sensing</span><span class="tag">Medical Devices</span></div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 05 — SCHOOL PROJECT</div>
+        </div>
+        <div class="case-date">02/2024 – 04/2024 · Rouen</div>
+      </div>
+      <h3>Facial Detection Model</h3>
+      <div class="case-loc">ESIGELEC</div>
+      <p class="desc">Built a 2D/3D face detection pipeline based on MobileNetV2, extracting interest points and descriptors from reference photos to recognize and frame faces in real time from photos or video streams. Trained on the FDDB dataset to distinguish known from unknown faces.</p>
+      <div class="case-foot">
+        <div class="tags"><span class="tag">MobileNetV2</span><span class="tag">Computer Vision</span><span class="tag">FDDB Dataset</span></div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div>
+          <div class="case-id">CASE 06 — SCHOOL PROJECT</div>
+        </div>
+        <div class="case-date">01/2024 – 02/2024 · Rouen</div>
+      </div>
+      <h3>Robot Competition — Locomotive &amp; Follower</h3>
+      <div class="case-loc">ESIGELEC</div>
+      <p class="desc">Designed two coordinated robots: a locomotive that follows a line for a set duration using ultrasonic and infrared sensors, and a follower that tracks the locomotive using IR sensors. Programmed and deployed on an MSP430 microcontroller.</p>
+      <div class="case-foot">
+        <div class="tags"><span class="tag">MSP430</span><span class="tag">IR / US Sensors</span><span class="tag">Robotics</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="pulse-divider">
+    <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,30 L500,30 L525,10 L550,50 L575,30 L1000,30" />
+    </svg>
+  </div>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <h2>Open to research and engineering roles in AI vision & computer vision — let's talk.</h2>
+      <div class="contact-actions">
+        <a class="btn primary" href="mailto:Qi.zhao@groupe-esigelec.org">Email me ↗</a>
+        <a class="btn ghost" href="Qi_Zhao_CV.pdf" download="Qi_Zhao_CV.pdf">Download CV ↓</a>
+      </div>
+    </div>
+    <div class="contact-lines">
+      <div>
+        <div class="ledger-label">Email</div>
+        <div class="ledger-value mono">Qi.zhao@groupe-esigelec.org</div>
+      </div>
+      <div>
+        <div class="ledger-label">Phone</div>
+        <div class="ledger-value mono">+33 06 27 03 96 33</div>
+      </div>
+      <div>
+        <div class="ledger-label">Location</div>
+        <div class="ledger-value mono">Rouen, France</div>
+      </div>
+      <div>
+        <div class="ledger-label">GitHub</div>
+        <div class="ledger-value mono"><a href="https://github.com/MRick2L" target="_blank" rel="noopener">github.com/MRick2L</a></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Re-trigger pulse-line draw animation when it scrolls into view
+  const pulses = document.querySelectorAll('.pulse-line');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.style.animation = 'none';
+        entry.target.getBoundingClientRect();
+        entry.target.style.animation = 'draw 1.8s ease forwards';
+      }
+    });
+  }, {threshold:0.4});
+  pulses.forEach(p=>io.observe(p));
+</script>
+
+</body>
+</html>
